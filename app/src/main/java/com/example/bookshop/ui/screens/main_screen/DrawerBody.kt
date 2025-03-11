@@ -1,5 +1,6 @@
 package com.example.bookshop.ui.screens.main_screen
 
+import android.widget.AdapterView.AdapterContextMenuInfo
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -28,15 +29,19 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bookshop.R
 import com.example.bookshop.ui.theme.ButtonColor
+import com.example.bookshop.R
+import com.example.bookshop.ui.theme.AdminButton
 import com.google.firebase.Firebase
 import com.google.firebase.auth.auth
 import com.google.firebase.firestore.firestore
 import com.siddroid.holi.colors.MaterialColor
 
 @Composable
-fun DrawerBody() {
+fun DrawerBody(
+    onAdmin: (Boolean) -> Unit = {},
+    onAdminClick: () -> Unit
+) {
     val drawerItems = listOf(
         "Favorites",
         "Fantasy",
@@ -47,6 +52,7 @@ fun DrawerBody() {
     LaunchedEffect(Unit) {
         isAdmin{isAdmin->
             isAdminState.value = isAdmin
+            onAdmin(isAdmin)
         }
     }
     Box(modifier = Modifier.fillMaxSize().background(Color.Gray)){
@@ -107,10 +113,11 @@ fun DrawerBody() {
                 Button(
                     modifier = Modifier.fillMaxWidth().padding(5.dp),
                     colors = ButtonDefaults.buttonColors(
-                        contentColor = ButtonColor
+                        contentColor = Color.White,
+                        containerColor = AdminButton
                     ),
                     onClick = {
-
+                        onAdminClick()
                     }
                 ) {
                     Text("Admin Panel")

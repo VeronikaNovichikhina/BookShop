@@ -21,10 +21,11 @@ import com.example.bookshop.ui.theme.FilterDrawer
 
 @Composable
 fun  RoundedCornerDropDownMenu(
+    defCategory: String,
     onOptionSelected : (String) -> Unit
 ){
     val expanded = remember { mutableStateOf(false) }
-    val selectedOption = remember { mutableStateOf("BestSellers") }
+    val selectedOption = remember { mutableStateOf(defCategory) }
     val categoriesList = listOf(
         "Fantasy",
         "Drama",
@@ -58,6 +59,7 @@ fun  RoundedCornerDropDownMenu(
                     },onClick = {
                         selectedOption.value = option
                         expanded.value = false
+                        onOptionSelected(option)
                     }
                 )
             }

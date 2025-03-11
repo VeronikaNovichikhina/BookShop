@@ -29,10 +29,10 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
-import com.example.bookshop.R
 import com.example.bookshop.ui.screens.login.data.MainScreenDataObject
 import com.example.bookshop.ui.screens.login.data.SignUpObject
 import com.example.bookshop.ui.theme.Transparent
+import com.example.bookshop.R
 import com.google.firebase.Firebase
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.auth

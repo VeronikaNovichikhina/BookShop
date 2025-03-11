@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.SignInOutPrac" parent="android:Theme.Material.Light.NoActionBar" >
+    <style name="Theme.BookShop" parent="android:Theme.Material.Light.NoActionBar" >
         <item name="android:statusBarColor">#303F51B5</item>
     </style>
 </resources>

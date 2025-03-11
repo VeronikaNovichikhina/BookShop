@@ -17,8 +17,8 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.bookshop.R
 import com.example.bookshop.ui.theme.FilterDrawer1
+import com.example.bookshop.R
 
 @Composable
 fun DrawerHeader(email: String) {
@@ -32,7 +32,7 @@ fun DrawerHeader(email: String) {
     ) {
         Image(
             modifier = Modifier.size(90.dp),
-            painter = painterResource(id = R.drawable.mainscreen),
+            painter = painterResource(id = R.drawable.bookheader),
             contentDescription = "books"
         )
         Spacer(modifier = Modifier.height(10.dp))

@@ -9,11 +9,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.signinoutprac"
+    namespace = "com.example.bookshop"
     compileSdk = 35
 
     defaultConfig {
-        applicationId = "com.example.signinoutprac"
+        applicationId = "com.example.bookshop"
         minSdk = 24
         targetSdk = 35
         versionCode = 1
@@ -66,6 +66,7 @@ dependencies {
     implementation(libs.androidx.material3)
     implementation(libs.firebase.auth)
     implementation(libs.firebase.firestore)
+    implementation(libs.firebase.storage.ktx)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

@@ -15,6 +15,7 @@ navigationCompose = "2.8.5"
 serializationVersion = "2.1.0"
 serializationKotlin = "1.7.3"
 firebaseFirestore = "25.1.1"
+firebaseStorageKtx = "21.0.1"
 
 
 [libraries]
@@ -37,6 +38,7 @@ firebase-auth = { group = "com.google.firebase", name = "firebase-auth", version
 kotlinx-serialization-json ={ module ="org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref ="serializationKotlin"}
 androidx-navigation-compose ={ module ="androidx.navigation:navigation-compose", version.ref ="navigationCompose"}
 firebase-firestore = { group = "com.google.firebase", name = "firebase-firestore", version.ref = "firebaseFirestore" }
+firebase-storage-ktx = { group = "com.google.firebase", name = "firebase-storage-ktx", version.ref = "firebaseStorageKtx" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
