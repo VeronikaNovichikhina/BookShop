@@ -9,6 +9,8 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import com.example.bookshop.ui.add_book_screen.AddBookScreen
 import com.example.bookshop.ui.add_book_screen.AddScreenObject
+import com.example.bookshop.ui.details_screen.data.DetailsNavObject
+import com.example.bookshop.ui.details_screen.ui.DetailsScreen
 import com.example.bookshop.ui.screens.SignUpScreen
 import com.example.bookshop.ui.screens.login.LogInScreen
 import com.example.bookshop.ui.screens.login.data.LoginScreenObject
@@ -31,7 +33,18 @@ class MainActivity : ComponentActivity() {
                 }
                 composable<MainScreenDataObject> {navEntry->
                     val navData = navEntry.toRoute<MainScreenDataObject>()
-                    MainScreen(navData, onBookEditClick = { book ->
+                    MainScreen(
+                        navData,
+                        onBookClick = {bk ->
+                            navController.navigate(DetailsNavObject(
+                                title = bk.title,
+                                description = bk.description,
+                                price =  bk.price,
+                                category = bk.category,
+                                imageUrl = bk.imageUrl
+                            ))
+                        },
+                        onBookEditClick = { book ->
                         navController.navigate(
                             AddScreenObject(
                                 key = book.key,
@@ -52,6 +65,10 @@ class MainActivity : ComponentActivity() {
                     AddBookScreen(navData){
                         navController.popBackStack()
                     }
+                }
+                composable<DetailsNavObject> {navEntry->
+                    val navData = navEntry.toRoute<DetailsNavObject>()
+                    DetailsScreen(navData)
                 }
                 composable<SignUpObject> {
                     SignUpScreen(

@@ -13,7 +13,7 @@ sealed class BottomMenuItem(
         R.drawable.home,
         "Home"
     )
-    object Favorites : BottomMenuItem(
+    object Favs : BottomMenuItem(
         "",
         R.drawable.fav,
         "Favs"

@@ -39,14 +39,17 @@ import com.siddroid.holi.colors.MaterialColor
 
 @Composable
 fun DrawerBody(
-    onAdmin: (Boolean) -> Unit = {},
-    onAdminClick: () -> Unit
+    onAdmin: (Boolean) -> Unit ,
+    onAdminClick: () -> Unit,
+    onFavClick: () -> Unit,
+    onCategoryClick: (String) -> Unit
 ) {
-    val drawerItems = listOf(
+    val categoryList = listOf(
         "Favorites",
+        "All",
         "Fantasy",
         "Drama",
-        "BestSellers",
+        "Bestsellers",
     )
     val isAdminState = remember { mutableStateOf(false) }
     LaunchedEffect(Unit) {
@@ -82,11 +85,15 @@ fun DrawerBody(
                     .background(MaterialColor.GREY_100)
             )
             LazyColumn(Modifier.fillMaxWidth()) {
-                items(drawerItems) { item ->
+                items(categoryList) { item ->
                     Column(
                         Modifier.fillMaxWidth()
                             .clickable {
-
+                                if(categoryList[0] == item) {
+                                    onFavClick()
+                                }else{
+                                    onCategoryClick(item)
+                                }
                             }
                     ){
                         Spacer(modifier = Modifier.height(12.dp))

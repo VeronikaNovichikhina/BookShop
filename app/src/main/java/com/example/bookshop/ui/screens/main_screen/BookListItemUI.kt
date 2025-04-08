@@ -3,6 +3,7 @@ package com.example.bookshop.ui.screens.main_screen
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -38,10 +39,15 @@ fun BookListItemUI(
     showEditButton: Boolean = false,
     book : Book,
     onEditClick: (Book) -> Unit,
-    onFavoriteClick: () -> Unit) {
+    onFavoriteClick: () -> Unit,
+    onBookClick: (Book) -> Unit,
+    ) {
     Column(
         modifier = Modifier.fillMaxWidth()
             .padding(16.dp)
+            .clickable {
+                onBookClick(book)
+            }
     ) {
         var bitmap : Bitmap? = null
         try {
