@@ -9,5 +9,6 @@ data class AddScreenObject(
     val description: String = "",
     val price: String = "",
     val category: String = "",
+    val year: String = "",
     val imageUrl: String = "",
 )

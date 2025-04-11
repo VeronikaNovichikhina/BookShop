@@ -50,6 +50,7 @@ fun AddBookScreen(
     var selectedCategory  by remember { mutableStateOf(navData.category) }
     var title by remember { mutableStateOf(navData.title) }
     var description by remember { mutableStateOf(navData.description) }
+    var year by remember { mutableStateOf(navData.year) }
     var price by remember { mutableStateOf(navData.price) }
     var selectedImageUrl by remember { mutableStateOf<Uri?>(null) }
 
@@ -112,6 +113,13 @@ fun AddBookScreen(
                     title = it
                 },
                 label = "Title"
+            )
+            RoundedTextField(
+                text = year,
+                onValueChange ={
+                    year = it
+                },
+                label = "Year"
             )
             RoundedTextField(
                 text = description,

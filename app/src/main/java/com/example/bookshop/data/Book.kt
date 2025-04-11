@@ -7,5 +7,6 @@ data class Book (
     val description: String = "",
     val price: String = "",
     val category: String = "",
+    val year: String = "",
     val isFavorite: Boolean = false,
 )

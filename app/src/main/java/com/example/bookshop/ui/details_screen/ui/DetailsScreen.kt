@@ -13,6 +13,8 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material3.Button
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -41,9 +43,12 @@ fun DetailsScreen(
     }
     Column(modifier = Modifier.fillMaxSize()
         .padding(10.dp),
-        verticalArrangement = Arrangement.SpaceBetween)
+        verticalArrangement = Arrangement.SpaceBetween,
+        )
     {
-        Column(modifier = Modifier.fillMaxWidth())
+        Column(modifier = Modifier
+            .weight(1f)
+            .verticalScroll(rememberScrollState()))
         {
             Row(modifier = Modifier.fillMaxWidth())
             {
@@ -63,20 +68,15 @@ fun DetailsScreen(
                 ) {
                     Text(text ="Категория:",
                         color = Color.Gray)
-                    Text(text =navObject.category,
-                        color = Color.Gray)
-                    Text(text ="Автор:",
-                        color = Color.Gray)
-                    Text(text ="J. R. R. Tolkien",
+                    Text(text = navObject.category,
+                        color = Color.Black,
                         fontWeight = FontWeight.Bold)
                     Text(text ="Дата печати: ",
                         color = Color.Gray)
-                    Text(text ="16-02-1954",
-                        fontWeight = FontWeight.Bold)
-                    Text(text ="Оценка:",
-                        color = Color.Gray)
-                    Text(text ="4.8",
-                        fontWeight = FontWeight.Bold)
+                    Text(text = "empty",
+                        fontWeight = FontWeight.Bold,
+                        color = Color.Black)
+
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))

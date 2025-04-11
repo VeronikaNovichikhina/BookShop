@@ -73,6 +73,13 @@ fun BookListItemUI(
         )
         Spacer(Modifier.height(5.dp))
         Text(
+            text = book.year,
+            fontSize = 15.sp,
+            color = Color.Black,
+            fontWeight = FontWeight.Bold
+        )
+        Spacer(Modifier.height(5.dp))
+        Text(
             text = book.description,
             fontSize = 16.sp,
             color = Color.Gray,

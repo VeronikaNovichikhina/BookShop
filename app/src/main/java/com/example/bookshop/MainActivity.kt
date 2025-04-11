@@ -41,6 +41,7 @@ class MainActivity : ComponentActivity() {
                                 description = bk.description,
                                 price =  bk.price,
                                 category = bk.category,
+                                year =  bk.year,
                                 imageUrl = bk.imageUrl
                             ))
                         },
@@ -52,6 +53,7 @@ class MainActivity : ComponentActivity() {
                                 description = book.description,
                                 price = book.price,
                                 imageUrl = book.imageUrl,
+                                year =  book.year,
                                 category = book.category,
                             )
                         )
