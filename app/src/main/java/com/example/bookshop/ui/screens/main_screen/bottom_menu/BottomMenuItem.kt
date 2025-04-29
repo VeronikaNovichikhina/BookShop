@@ -18,9 +18,9 @@ sealed class BottomMenuItem(
         R.drawable.fav,
         "Favs"
     )
-    object Settings : BottomMenuItem(
+    object Account : BottomMenuItem(
         "",
-        R.drawable.settings,
-        "Setting"
+        R.drawable.account,
+        "Acount"
     )
 }

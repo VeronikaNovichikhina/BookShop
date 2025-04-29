@@ -21,7 +21,7 @@ import com.example.bookshop.ui.theme.FilterDrawer1
 import com.example.bookshop.R
 
 @Composable
-fun DrawerHeader(email: String) {
+fun DrawerHeader() {
     Column(
         modifier = Modifier
             .fillMaxWidth()
@@ -41,11 +41,6 @@ fun DrawerHeader(email: String) {
             color = Color.White,
             fontSize = 22.sp,
             fontWeight = FontWeight.Bold
-        )
-        Text(
-            text = email,
-            color = Color.Gray,
-            fontSize = 16.sp,
         )
     }
 }

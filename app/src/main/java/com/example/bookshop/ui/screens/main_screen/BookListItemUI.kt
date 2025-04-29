@@ -3,6 +3,7 @@ package com.example.bookshop.ui.screens.main_screen
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.graphics.drawable.Icon
+import android.widget.Toast
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -13,6 +14,7 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material.icons.filled.Favorite
 import androidx.compose.material.icons.filled.FavoriteBorder
@@ -31,8 +33,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import coil3.compose.AsyncImage
 import com.example.bookshop.data.Book
-import okio.IOException
-import kotlin.io.encoding.Base64
+import com.google.firebase.firestore.FirebaseFirestore
 
 @Composable
 fun BookListItemUI(
@@ -106,7 +107,6 @@ fun BookListItemUI(
                     contentDescription = null
                 )
             }
-
             IconButton(onClick = {
                 onFavoriteClick()
             }) {

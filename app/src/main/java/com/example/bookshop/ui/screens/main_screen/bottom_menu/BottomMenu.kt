@@ -14,11 +14,12 @@ fun BottomMenu(
     selectedItem: String,
     onFavsClick: () -> Unit ={},
     onHomeClick: () -> Unit ={},
+    onAccountClick: () -> Unit ={}
 ){
     val items = listOf(
         BottomMenuItem.Home,
         BottomMenuItem.Favs,
-        BottomMenuItem.Settings
+        BottomMenuItem.Account
     )
     NavigationBar {
         items.forEach { item->
@@ -28,6 +29,7 @@ fun BottomMenu(
                     when(item.title){
                         BottomMenuItem.Home.title -> onHomeClick()
                         BottomMenuItem.Favs.title -> onFavsClick()
+                        BottomMenuItem.Account.title -> onAccountClick()
                     }
                 },
                 label = {

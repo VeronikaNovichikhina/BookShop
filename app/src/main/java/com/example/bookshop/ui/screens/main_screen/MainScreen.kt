@@ -1,17 +1,28 @@
 package com.example.bookshop.ui.screens.main_screen
 
+import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Menu
+import androidx.compose.material3.Button
 import androidx.compose.material3.DrawerValue
+import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
+import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalNavigationDrawer
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.rememberDrawerState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -21,11 +32,18 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.bookshop.data.Book
 import com.example.bookshop.data.Favorite
+import com.example.bookshop.ui.screens.login.LogInButton
+import com.example.bookshop.ui.screens.login.RoundedTextField
+import com.example.bookshop.ui.screens.login.data.LoginScreenObject
 import com.example.bookshop.ui.screens.login.data.MainScreenDataObject
 import com.example.bookshop.ui.screens.main_screen.bottom_menu.BottomMenu
 import com.example.bookshop.ui.screens.main_screen.bottom_menu.BottomMenuItem
+import com.google.firebase.auth.ktx.auth
 import com.google.firebase.firestore.FieldPath
 import com.google.firebase.firestore.FirebaseFirestore
 import com.google.firebase.firestore.ktx.firestore
@@ -33,9 +51,11 @@ import com.google.firebase.ktx.Firebase
 import kotlinx.coroutines.launch
 
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun MainScreen(
     navData: MainScreenDataObject,
+    onLogOut:()->Unit,
     onBookEditClick: (Book) -> Unit,
     onBookClick: (Book) -> Unit,
     onAdminClick: () -> Unit,
@@ -73,7 +93,7 @@ fun MainScreen(
             Column(
                 Modifier.fillMaxWidth(0.7f)
             ) {
-                DrawerHeader(navData.email)
+                DrawerHeader()
                 DrawerBody(
                     onAdmin = {isAdmin->
                         isAdminState.value = isAdmin
@@ -118,6 +138,20 @@ fun MainScreen(
     ) {
         Scaffold(
             modifier = Modifier.fillMaxSize(),
+            topBar = {
+                TopAppBar(
+                    title = { Text("Главная") },
+                    navigationIcon = {
+                        IconButton(onClick = {
+                            coroutineScope.launch {
+                                drawerState.open()
+                            }
+                        }) {
+                            Icon(Icons.Default.Menu, contentDescription = "Меню")
+                        }
+                    }
+                )
+            },
             bottomBar = {
                 BottomMenu(
                     selectedBottomItemState.value ,
@@ -138,7 +172,11 @@ fun MainScreen(
                             booksListState.value = books
                         }
                     }
-                }
+                },
+                    onAccountClick = {
+                        selectedBottomItemState.value = BottomMenuItem.Account.title
+
+                    }
             )}
         ){ paddingValues->
             if(isFavListEmptyState.value){
@@ -148,38 +186,59 @@ fun MainScreen(
                     Text(text = "Empty list",color = Color.LightGray)
                 }
             }
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier.fillMaxSize()
-                    .padding(paddingValues)
-            ) {
-                items(booksListState.value){book->
-                    BookListItemUI(
-                        isAdminState.value,
-                        book,
-                        onBookClick={bk->
-                            onBookClick(bk)
-                        },
-                        onEditClick = {
-                            onBookEditClick(it)
-                        },
-                        onFavoriteClick = {
-                            booksListState.value = booksListState.value.map {
-                                if (it.key == book.key){
-                                    onFavs(
-                                        db,
-                                        navData.uid,
-                                        Favorite(it.key),
-                                        !it.isFavorite
-                                    )
-                                    it.copy(isFavorite = !it.isFavorite)
-                                } else it
-                            }
-                            if(selectedBottomItemState.value == BottomMenuItem.Favs.title){
-                                booksListState.value = booksListState.value.filter { it.isFavorite }
-                            }
+            when(selectedBottomItemState.value){
+                BottomMenuItem.Account.title->{
+                    Column(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .padding(16.dp),
+                        horizontalAlignment = Alignment.CenterHorizontally,
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text("Почта: ${navData.email}", fontSize = 20.sp)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        LogInButton("Выйти"){
+                            Firebase.auth.signOut()
+                            onLogOut()
                         }
-                    )
+                    }
+                }
+                else -> {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier.fillMaxSize()
+                            .padding(paddingValues)
+                    ) {
+                        items(booksListState.value){book->
+                            BookListItemUI(
+                                isAdminState.value,
+                                book,
+                                onBookClick={bk->
+                                    onBookClick(bk)
+                                },
+                                onEditClick = {
+                                    onBookEditClick(it)
+                                },
+
+                                onFavoriteClick = {
+                                    booksListState.value = booksListState.value.map {
+                                        if (it.key == book.key){
+                                            onFavs(
+                                                db,
+                                                navData.uid,
+                                                Favorite(it.key),
+                                                !it.isFavorite
+                                            )
+                                            it.copy(isFavorite = !it.isFavorite)
+                                        } else it
+                                    }
+                                    if(selectedBottomItemState.value == BottomMenuItem.Favs.title){
+                                        booksListState.value = booksListState.value.filter { it.isFavorite }
+                                    }
+                                }
+                            )
+                        }
+                    }
                 }
             }
         }
@@ -278,3 +337,5 @@ private fun onFavs(
            .delete()
     }
 }
+
+
